@@ -10,8 +10,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "client")
 public class Client implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -20,13 +22,16 @@ public class Client implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(nullable = false)
+	@Column(nullable = true, unique = false)
+	private String name;
+
+	@Column(nullable = false, unique = true)
 	private String username;
 
 	@Column(nullable = false)
 	private String password;
 
-	@Column(nullable = false)
+	@Column(nullable = false, unique = true)
 	private String email;
 
 	@Column(nullable = true)
@@ -35,7 +40,7 @@ public class Client implements Serializable {
 	@Column(nullable = true)
 	private List<Long> rooms;
 
-	@Column(nullable = false)
+	@Column(nullable = true)
 	private LocalDateTime dateRegister;
 
 	public Client() {
@@ -43,6 +48,14 @@ public class Client implements Serializable {
 
 	public String getUsername() {
 		return username;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public void setUsername(String username) {
